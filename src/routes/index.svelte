@@ -1,0 +1,77 @@
+<script>
+	import Timeline from '../components/Timeline'
+	import TimelineSearch from '../components/TimelineSearch'
+	import TimelineResultCount from '../components/TimelineResultCount'
+	import TimelineRange from '../components/TimelineRange'
+</script>
+
+<div class="header">
+  <h1>HK Freedom Timeline</h1>
+	<p>The darkest hours, before dawn </p>
+</div>
+
+<page-wrapper>
+	<time-range-wrapper>
+		<TimelineRange />
+	</time-range-wrapper>
+	<content-wrapper>
+		<div class='search-info'>
+			<TimelineSearch />
+			<div class='count-wrapper'>
+				<TimelineResultCount />
+			</div>
+		</div>
+		<Timeline />
+	</content-wrapper>
+</page-wrapper>
+
+<style>
+	h1, p {
+		text-align: center;
+		margin: 0 auto;
+	}
+
+	h1 {
+		font-size: 2.8em;
+		text-transform: uppercase;
+		font-weight: 700;
+    margin: 16px 8px;
+	}
+
+	p {
+		margin: 1em auto;
+	}
+
+	@media (min-width: 480px) {
+		h1 {
+			font-size: 4em;
+		}
+	}
+
+	@media (max-width: 768px) {
+		time-range-wrapper {
+			display: none;
+		}
+	}
+
+	page-wrapper {
+		display: flex;
+		
+	}
+	content-wrapper {
+		max-width: 750px;
+		width: 100%;
+		/* display: flex; */
+	}
+	.search-info {
+		display: flex;
+    align-items: center;
+		justify-content: center;
+		position: relative;
+	}
+	.count-wrapper {
+		position: absolute;
+		margin-right: 16px;
+		right: 0;
+	}
+</style>
