@@ -1,0 +1,31 @@
+language: node_js
+node_js: 10
+group: stable
+dist: xenial
+os: linux
+sudo: required
+
+services:
+  - docker
+
+before_install:
+  - echo pass
+
+install:
+  - echo pass
+
+script: 
+  - docker build -t ${AWS_REGISTRY_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/$AWS_ECR_REPO:latest .
+
+before_deploy:
+  - pip install awscli --upgrade --user
+  - eval $(aws ecr get-login --registry-ids ${AWS_REGISTRY_ID} --region ${AWS_REGION} --no-include-email)
+
+deploy:
+  - provider: script
+    script: |-
+      docker push ${AWS_REGISTRY_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/$AWS_ECR_REPO:latest
+    skip_cleanup: true
+    on:
+      all_branches: true
+
