@@ -7,6 +7,7 @@ export async function get(req, res) {
   logger.info('/api/events')
 
   const telegramMessages = await Message.scope(['channel', 'media']).findAll({
+    order: [['Date', 'DESC']],
     ...(req.query.limit && { limit: req.query.limit }),
   })
 
