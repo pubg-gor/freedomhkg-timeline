@@ -1,11 +1,12 @@
 version: "3.4"
 services:
-  arangodb-instance:
-    image: arangodb/arangodb
-    environment:
-      - ARANGO_NO_AUTH=1
-    ports:
-      - 8529:8529
+  # arangodb-instance:
+  #   image: arangodb/arangodb
+  #   environment:
+  #     - ARANGO_NO_AUTH=1
+  #   ports:
+  #     - 8529:8529
+  #   command: --rocksdb.total-write-buffer-size 157286400
 
   # timeline-app:
   #   build:

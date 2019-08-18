@@ -3,6 +3,6 @@ const path = require('path')
 
 shell.rm(
   '-rf',
-  path.join(__dirname, '../tg-export/usermedia'),
-  path.join(__dirname, '../tg-export/export.db')
+  path.join(__dirname, '../tg-media'),
+  path.join(__dirname, '../tg-export-sqlite.db')
 )

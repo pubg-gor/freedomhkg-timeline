@@ -1,22 +1,22 @@
 .DS_Store
 
-/node_modules/
-
+node_modules/
 yarn-error.log
 
-/src/node_modules/@sapper/
-/__sapper__/
-/cypress/screenshots/
+# credentials
 *.env
 !credential.sample.env
-umzug.json
 
-*.session
+# sapper generated files
+/src/node_modules/@sapper/
+/__sapper__/
+
+# telegram-export library & generated config
 telegram-export/
 telegram-export.config.ini
 
-tg-export/*
-!tg-export/.gitkeep
+# from telegram-export
+/tg-media/
+tg-export-sqlite.db
+*.session
 
-static/telegram-images/*
-!static/telegram-images/.gitkeep

@@ -6,7 +6,7 @@ Lookup things happening in Hong Kong, originated from the [反送中](https://ww
 
 - [Svelte](https://svelte.dev/): Frontend rendering framework
 - [Sapper](https://sapper.svelte.dev/): SSR framework for Svelte (just like [next.js](https://nextjs.org/) for react)
-- [ArangoDB](https://www.arangodb.com/): Mongo-like collection-document + graph database
+- [sqlite]
 
 ## Production
 
@@ -25,20 +25,17 @@ Data source (telegram channels):
 2. run scripts below
 
 ```bash
-# start docker services (arangodb)
-docker-compose up -d
-
 # install dependencies
 yarn install
 
-# setup data
+# export telegram data
 # 
 # When starts to export telegram data, CLI will ask you to enter 
 # the telegram login code sent to your account.
 #
-# The auth session will be saved to tg-export and free you from 
-# this manual step for a few days.
-yarn setup-proj
+# The auth session will be saved to <rootDir>/telegram-exporter.session
+# and free you from this manual step for a few days.
+node scripts/exportTelegramData.js
 
 # start server on http://localhost:3000
 yarn dev
@@ -51,14 +48,13 @@ yarn dev
 ### Data processing explained
 
 1. collect data & images from telegram channel periodically using [`telegram-export`](https://github.com/expectocode/telegram-export)
-2. `telegram-export` exports sqlite db & images to `tg-export`
-3. use js to port sqlite data to arangodb + some data transformation
-4. put images to `/static` for Sapper to serve
-5. Sapper server can handle by serving data from db and images from `/static`
+2. `telegram-export` exports sqlite db to `tg-export-sqlite.db`, and images to `tg-media/`
+4. put images to `/tg-media` for Sapper to serve
+5. Sapper server can handle by serving data from db and images from `/tg-media`
 
-### Arangodb
+### Why Sqlite?
 
-Visit the db web interface on http://localhost:8529
+We're using the sqlite db exported from telegram-export for simplicity.
 
 ### TODO
 
@@ -71,9 +67,6 @@ Visit the db web interface on http://localhost:8529
 #### Tech-wise
 
 - automated / smooth telegram data sync
-- extract telegram export part as a separate service
-  - `telegram-export` sqlite -> mysql
-  - put media data to S3, instead of `/static` managed by Sapper
-- arangodb OOM issue: OOM after 5 hrs on production EC2 T2.micro
+- put sqlite db & telegram images to S3 on production
 - dockerize the app
 - architecture-as-code

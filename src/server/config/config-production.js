@@ -3,9 +3,6 @@ const credentials = require('../../utils/credentialUtil')(
 )
 
 module.exports = {
-  db: {
-    url: credentials.DB_URL,
-  },
   telegram: {
     apiId: credentials.TELEGRAM_API_ID,
     apiHash: credentials.TELEGRAM_API_HASH,
