@@ -10,16 +10,13 @@
   ],
   "scripts": {
     "setup-proj": "node scripts/setupProject",
+    "upload-s3": "node -r esm scripts/uploadTgMediaToS3.js",
     "clean": "rm -rf .cache dist",
     "dev": "sapper dev",
     "build": "sapper build",
     "export": "sapper export",
     "start": "node __sapper__/build",
-    "cy:run": "cypress run",
-    "cy:open": "cypress open",
-    "test": "run-p --race dev cy:run",
-    "lint:fix": "eslint src --fix",
-    "test-db-connection": "node scripts/testDbConnection"
+    "lint:fix": "eslint src --fix"
   },
   "devDependencies": {
     "babel-eslint": "^10.0.2",
@@ -34,7 +31,8 @@
     "svelte": "^3.6.9",
     "svelte-loader": "^2.9.0",
     "twilio": "^3.33.2",
-    "webpack": "^4.7.0"
+    "webpack": "^4.7.0",
+    "esm": "^3.2.25"
   },
   "dependencies": {
     "@polka/send-type": "^0.5.2",

@@ -7,12 +7,20 @@ Lookup things happening in Hong Kong, originated from the [反送中](https://ww
 - [Svelte](https://svelte.dev/): Frontend rendering framework
 - [Sapper](https://sapper.svelte.dev/): SSR framework for Svelte (just like [next.js](https://nextjs.org/) for react)
 - [sqlite]
+- [`telegram-export`](https://github.com/expectocode/telegram-export) CLI tool to export telegram data. This is a forked version that can skip downloading media if media url (our S3 url) is present.
 
 ## Production
 
 Data source (telegram channels):
 - 反送中已核實資訊頻道 https://t.me/antiextraditionverifiednews
 - 實時現場新聞直播（及 獨家實時消息）https://t.me/realtimenewsbroadcasts
+
+### Upload images to S3
+
+To put exported telegram images to S3 and use them as
+```bash
+NODE_ENV=production yarn upload-s3
+```
 
 ## Development
 
@@ -47,14 +55,15 @@ yarn dev
 
 ### Data processing explained
 
-1. collect data & images from telegram channel periodically using [`telegram-export`](https://github.com/expectocode/telegram-export)
-2. `telegram-export` exports sqlite db to `tg-export-sqlite.db`, and images to `tg-media/`
-4. put images to `/tg-media` for Sapper to serve
-5. Sapper server can handle by serving data from db and images from `/tg-media`
+1. collect data & images from telegram channel periodically using `telegram-export`
+2. `telegram-export` will:
+  - exports sqlite db to `tg-export-sqlite.db`, images to `tg-media/`, and 
+  - create an auth session `telegram-exporter.session` (if not exists)
+3. Sapper server can handle by serving data from db and images from `/tg-media`
 
 ### Why Sqlite?
 
-We're using the sqlite db exported from telegram-export for simplicity.
+We're using the sqlite db exported from `telegram-export` for simplicity.
 
 ### TODO
 

@@ -8,4 +8,10 @@ module.exports = {
     apiHash: credentials.TELEGRAM_API_HASH,
     phoneNumber: credentials.TELEGRAM_PHONE_NUMBER,
   },
+  s3: {
+    public: {
+      url: credentials.S3_PUBLIC_URL,
+      s3Url: credentials.S3_PUBLIC_BUCKET_PATH,
+    },
+  },
 }

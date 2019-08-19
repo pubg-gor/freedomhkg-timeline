@@ -1,11 +1,13 @@
 import path from 'path'
 import Sequelize from 'sequelize'
-import * as R from 'ramda'
-const LosslessJSON = require('lossless-json')
+// import * as R from 'ramda'
+// const LosslessJSON = require('lossless-json')
+const Op = Sequelize.Op
 
 export const sequelize = new Sequelize({
   dialect: 'sqlite',
   storage: path.join(process.cwd(), 'tg-export-sqlite.db'),
+  logging: false,
 })
 
 export class Message extends Sequelize.Model {}
@@ -21,6 +23,7 @@ Message.init(
       field: 'ID',
     },
     contextId: {
+      primaryKey: true,
       type: Sequelize.INTEGER,
       allowNull: false,
       field: 'ContextID',
@@ -45,11 +48,11 @@ Message.init(
     createdAt: false,
     updatedAt: false,
     scopes: {
-      channel: {
-        include: [{ model: Channel, as: 'channel' }],
+      hasMedia: {
+        where: { mediaId: { [Op.ne]: null } },
       },
       media: {
-        include: [{ model: Media, as: 'media' }],
+        include: [{ model: Media, as: 'media', required: false }],
       },
     },
   }
@@ -79,21 +82,25 @@ Media.init(
       type: Sequelize.INTEGER,
       field: 'Extra',
     },
+    url: {
+      type: Sequelize.TEXT,
+      field: 'Url',
+    },
   },
   {
     sequelize,
     freezeTableName: true,
     createdAt: false,
     updatedAt: false,
-    getterMethods: {
-      photoId() {
-        return R.unless(
-          R.isNil,
-          String,
-          R.path(['photo', 'id'], LosslessJSON.parse(this.extra))
-        )
-      },
-    },
+    // getterMethods: {
+    //   photoId() {
+    //     return R.unless(
+    //       R.isNil,
+    //       String,
+    //       R.path(['photo', 'id'], LosslessJSON.parse(this.extra))
+    //     )
+    //   },
+    // },
   }
 )
 
@@ -114,12 +121,20 @@ Channel.init(
       type: Sequelize.INTEGER,
       field: 'PictureID',
     },
+    dateUpdated: {
+      primaryKey: true,
+      type: Sequelize.INTEGER,
+      field: 'DateUpdated',
+    },
   },
   {
     sequelize,
     freezeTableName: true,
     createdAt: false,
     updatedAt: false,
+    defaultScope: {
+      order: [['dateUpdated', 'DESC']],
+    },
   }
 )
 

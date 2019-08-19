@@ -18,7 +18,8 @@ if (fs.existsSync('telegram-export')) {
   shell.cd('telegram-export')
   shell.exec('python3 setup.py install', { silent: true })
 } else {
-  shell.exec('git clone https://github.com/expectocode/telegram-export.git')
+  // our forked version
+  shell.exec('git clone https://github.com/chauchakching/telegram-export.git')
   shell.cd('telegram-export')
 }
 
