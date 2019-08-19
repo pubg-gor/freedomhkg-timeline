@@ -1,5 +1,10 @@
 FROM node:10
 
+# workaround for telegram-export
+RUN apt update && \
+    apt -y install python3-pip && \
+    pip3 install telethon~=1.4.3 tqdm async_generator appdirs PySocks
+
 # Create app directory
 WORKDIR /usr/src/app
 
