@@ -27,5 +27,5 @@ deploy:
       docker push ${AWS_REGISTRY_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/$AWS_ECR_REPO:latest
     skip_cleanup: true
     on:
-      all_branches: true
+      branch: master
 
