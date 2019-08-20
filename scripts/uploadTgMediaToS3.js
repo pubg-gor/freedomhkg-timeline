@@ -9,8 +9,8 @@ import { Message, Media } from '../src/drivers/sqlitedb'
 import config from '../src/server/config'
 
 async function task() {
-  const s3Url = R.path(['s3', 'public', 's3Url'], config)
-  if (!s3Url) {
+  const bucketPathForCLI = R.path(['s3', 'public', 'bucketPathForCLI'], config)
+  if (!bucketPathForCLI) {
     console.error('Error: s3 bucket path not found in config')
     return
   }
@@ -37,7 +37,9 @@ async function task() {
 
   for (let message of targetMessages) {
     const { contextId: channelId } = message
-    const s3FilePath = `${s3Url}/${channelId}/${getPhotoFilename(message)}`
+    const s3FilePath = `${bucketPathForCLI}/${channelId}/${getPhotoFilename(
+      message
+    )}`
     shell.exec(`aws s3 cp "${getPhotoPath(message)}" "${s3FilePath}"`)
     await Media.update(
       { url: `${channelId}/${encodeURIComponent(getPhotoFilename(message))}` },

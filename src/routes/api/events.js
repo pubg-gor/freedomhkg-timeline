@@ -3,7 +3,6 @@ import { DateTime } from 'luxon'
 import * as R from 'ramda'
 import { Message, Channel } from '../../drivers/sqlitedb'
 import logger from '../../utils/logger'
-import config from '../../server/config'
 
 export async function get(req, res) {
   logger.info('/api/events')
@@ -29,8 +28,8 @@ export async function get(req, res) {
       ...(media &&
         media.mimeType === 'image/jpeg' && {
           imgUrl: media.url
-            ? `${config.s3.public.url}/${media.url}`
-            : `/${contextId}/photo-${media.name}.${media.id}.jpg`,
+            ? `/s/${media.url}`
+            : `/s/${contextId}/photo-${media.name}.${media.id}.jpg`,
         }),
       telegramMessageId: id,
     }))

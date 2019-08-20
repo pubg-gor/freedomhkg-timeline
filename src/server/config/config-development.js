@@ -10,8 +10,7 @@ module.exports = {
   },
   s3: {
     public: {
-      url: credentials.S3_PUBLIC_URL,
-      s3Url: credentials.S3_PUBLIC_BUCKET_PATH,
+      bucketPathForCLI: credentials.S3_PUBLIC_BUCKET_PATH_FOR_CLI,
     },
   },
 }
