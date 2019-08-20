@@ -1,2 +1,4 @@
 node_modules
+tg-export-sqlite.db
+tg-media
 yarn-error.log
