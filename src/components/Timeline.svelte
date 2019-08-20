@@ -89,6 +89,7 @@
     height: 28px;
 
     position: sticky;
+    position: -webkit-sticky;
     top: 4px;
 
     display: flex;
@@ -131,12 +132,14 @@
 		.datetime {
       flex-direction: column;
       height: auto;
-      width: 32px;
       justify-content: flex-start;
       align-items: flex-end;
+      flex: 0;
+      padding-left: 0;
 		}
     .time {
       margin-top: 4px;
+      width: auto;
     }
 	}
 </style>
