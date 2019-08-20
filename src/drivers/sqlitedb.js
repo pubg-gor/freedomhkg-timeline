@@ -45,6 +45,7 @@ Message.init(
   {
     sequelize,
     freezeTableName: true,
+    tableName: 'Message',
     createdAt: false,
     updatedAt: false,
     scopes: {
@@ -89,6 +90,7 @@ Media.init(
   },
   {
     sequelize,
+    tableName: 'Media',
     freezeTableName: true,
     createdAt: false,
     updatedAt: false,
@@ -129,6 +131,7 @@ Channel.init(
   },
   {
     sequelize,
+    tableName: 'Channel',
     freezeTableName: true,
     createdAt: false,
     updatedAt: false,
