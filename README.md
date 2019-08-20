@@ -1,5 +1,7 @@
 # freedomhkg-timeline
 
+[![Build Status](https://travis-ci.org/freedomhkg/freedomhkg-timeline.svg?branch=master)](https://travis-ci.org/freedomhkg/freedomhkg-timeline)
+
 Lookup things happening in Hong Kong, originated from the [反送中](https://www.google.com/search?q=反送中) issue.
 
 ## Tech
