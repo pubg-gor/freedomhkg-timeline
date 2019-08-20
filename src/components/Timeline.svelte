@@ -44,7 +44,7 @@
             {telegramChannel.title}
           </a>
           {#if imgUrl}
-            <img class='image' src={imgUrl} alt={date} />
+            <img class='image' src={encodeURI(imgUrl).replace('+','%2B')} alt={date} />
           {/if}
           {#if description}
             <div class='description'>
