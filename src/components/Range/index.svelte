@@ -6,7 +6,7 @@
   export let ratio
   export let valueText
 
-  $: barLength = bar ? bar.offsetHeight : null
+	const getBarLength = () => bar ? bar.offsetHeight : null
 
 	let coords = {
 		x: 0,
@@ -20,8 +20,8 @@
 
 	function handlePanMove(event) {
     // const difference = event.detail.dx
-    const difference = event.detail.dy
-		coords.y = Math.min(Math.max(0, distance + difference), barLength)
+		const difference = event.detail.dy
+		coords.y = Math.min(Math.max(0, distance + difference), getBarLength())
 	}
 
 	function handlePanEnd(event) {
@@ -29,12 +29,11 @@
 		
 	}
 	
-	$: ratio = bar ? (distance / barLength).toFixed(2) : 0
+	$: ratio = bar && getBarLength() ? (distance / getBarLength()).toFixed(2) : 0
 	
 	$: style = `
 		transform: translate(-50%,-50%) translate(${coords.x}px,${coords.y}px);
 	`
-//	$: console.log(coords.x)
 </script>
 
 <style>
