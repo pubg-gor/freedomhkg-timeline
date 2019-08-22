@@ -27,6 +27,7 @@
     const [month, day] = selectedDay.split('.')
     const newBeforeDate = DateTime.fromObject({day, month, year:2019}).endOf('day').toISO()
 
+    window.scrollTo(0, 0)
     updateBeforeDate(newBeforeDate)
   }
 </script>
