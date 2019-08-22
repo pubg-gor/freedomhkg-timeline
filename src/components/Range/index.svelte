@@ -6,7 +6,7 @@
   export let ratio
   export let valueText
 
-  $: barLength = bar ? bar.offsetHeight : null
+	const getBarLength = () => bar ? bar.offsetHeight : null
 
 	let coords = {
 		x: 0,
@@ -20,8 +20,8 @@
 
 	function handlePanMove(event) {
     // const difference = event.detail.dx
-    const difference = event.detail.dy
-		coords.y = Math.min(Math.max(0, distance + difference), barLength)
+		const difference = event.detail.dy
+		coords.y = Math.min(Math.max(0, distance + difference), getBarLength())
 	}
 
 	function handlePanEnd(event) {
@@ -29,12 +29,11 @@
 		
 	}
 	
-	$: ratio = bar ? (distance / barLength).toFixed(2) : 0
+	$: ratio = bar && getBarLength() ? (distance / getBarLength()).toFixed(2) : 0
 	
 	$: style = `
-		transform: translate(-50%,-50%) translate(${coords.x}px,${coords.y}px);
+		transform: translate(0,-50%) translate(${coords.x || 0}px,${coords.y || 0}px);
 	`
-//	$: console.log(coords.x)
 </script>
 
 <style>
@@ -43,24 +42,23 @@
     height: 300px;
 	}
 	.wrapper {
-		background-color: grey;
+		/* background-color: grey; */
 		
 	}
 	.bar {
 		position: absolute;
 		height: 300px;
-		width: 4px;
+		width: 1px;
 		background-color: black;
 		transform: translate(-50%, 0);
 		border-radius: 4px;
 	}
 	.drag-box {
-		--width: 0px;
-		--height: 20px;
-		width: var(--width);
-		height: var(--height);
-		position: absolute;
-		background-color: #0000005c;
+    user-select: none;
+		position: relative;
+		left: 1px;
+		display: flex;
+    align-items: center;
 	}
 	.pointer {
 		width: 0; 
@@ -70,21 +68,19 @@
 
 		border-right: 10px solid #f00;
 		/* transform: translate(0, -50%); */
-		position: relative;
-		top: 4px;
 	}
 	.pointer-box {
-		position: relative;
-    left: 12px;
-		/* top: -12px; */
+		user-select: none;
 		background: white;
 		width: 60px;
 		height: 40px;
-		transform: translate(0, -50%);
+		/* transform: translate(0, -50%); */
 		display: flex;
 		justify-content: center;
 		align-items: center;
 		cursor: ns-resize;
+		border-radius: 4px;
+    box-shadow: 2px 2px #0000001f;
 	}
 </style>
 
