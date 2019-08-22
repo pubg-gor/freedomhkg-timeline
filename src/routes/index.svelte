@@ -11,18 +11,21 @@
 </div>
 
 <page-wrapper>
-	<time-range-wrapper>
-		<TimelineRange />
-	</time-range-wrapper>
-	<content-wrapper>
 		<div class='search-info'>
 			<TimelineSearch />
 			<div class='count-wrapper'>
 				<TimelineResultCount />
 			</div>
 		</div>
+
+	<content-wrapper>
 		<Timeline />
+		<time-range-wrapper>
+			<TimelineRange />
+		</time-range-wrapper>
+
 	</content-wrapper>
+
 </page-wrapper>
 
 <style>
@@ -45,6 +48,12 @@
 	page-wrapper {
     width: 780px;
 		display: flex;
+    flex-direction: column;
+	}
+
+	time-range-wrapper {
+		position: fixed;
+    transform: translateX(-100%);
 	}
 	
 	@media (min-width: 480px) {
@@ -65,7 +74,7 @@
 	content-wrapper {
 		max-width: 750px;
 		width: 100%;
-		/* display: flex; */
+		display: flex;
 	}
 	.search-info {
 		display: flex;

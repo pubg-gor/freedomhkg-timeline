@@ -80,6 +80,7 @@
 		align-items: center;
 		cursor: ns-resize;
 		border-radius: 4px;
+    box-shadow: 2px 2px #0000001f;
 	}
 </style>
 
