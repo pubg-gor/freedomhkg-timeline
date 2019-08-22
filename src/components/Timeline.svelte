@@ -63,9 +63,8 @@
     flex-direction: column;
   }
   .item {
-    margin: 4px;
+    margin:  12px 12px 0 12px;
     display: flex;
-    padding: 8px;
   }
   .card {
     background-color: white;
