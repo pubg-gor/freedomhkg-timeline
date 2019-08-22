@@ -15,13 +15,20 @@ install:
   - echo pass
 
 script: 
-  - docker build -t ${AWS_REGISTRY_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/$AWS_ECR_REPO:latest .
+  - [[ $TRAVIS_BRANCH == "master" ]] && TARGET_TAG="latest" || TARGET_TAG="dev"
+  - docker build -t ${AWS_REGISTRY_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/$AWS_ECR_REPO:$TARGET_TAG .
 
 before_deploy:
   - pip install awscli --upgrade --user
   - eval $(aws ecr get-login --registry-ids ${AWS_REGISTRY_ID} --region ${AWS_REGION} --no-include-email)
 
 deploy:
+  - provider: script
+    script: |-
+      docker push ${AWS_REGISTRY_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/$AWS_ECR_REPO:dev
+    skip_cleanup: true
+    on:
+      branch: development
   - provider: script
     script: |-
       docker push ${AWS_REGISTRY_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/$AWS_ECR_REPO:latest
