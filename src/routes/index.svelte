@@ -42,6 +42,11 @@
 		margin: 1em auto;
 	}
 
+	page-wrapper {
+    width: 780px;
+		display: flex;
+	}
+	
 	@media (min-width: 480px) {
 		h1 {
 			font-size: 4em;
@@ -49,15 +54,14 @@
 	}
 
 	@media (max-width: 768px) {
+		page-wrapper {
+			width: auto;
+		}
 		time-range-wrapper {
 			display: none;
 		}
 	}
 
-	page-wrapper {
-		display: flex;
-		
-	}
 	content-wrapper {
 		max-width: 750px;
 		width: 100%;

@@ -59,7 +59,6 @@
 
 <style>
   .wrapper {
-    max-width: 700px;
     display: flex;
     flex-direction: column;
   }
@@ -78,8 +77,11 @@
     flex-direction: column;
     padding: 12px;
   }
-  .card :nth-child(2) {
+  .card > * {
     margin-top: 8px;
+  }
+  .card :nth-child(1) {
+    margin-top: 0;
   }
   .datetime {
     flex: 1 0 auto;
@@ -140,6 +142,9 @@
     .time {
       margin-top: 4px;
       width: auto;
+    }
+    .description {
+      line-height: 23px;
     }
 	}
 </style>
