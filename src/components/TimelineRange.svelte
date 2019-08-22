@@ -1,6 +1,8 @@
 <script>
   import * as R from 'ramda'
   import {DateTime} from 'luxon'
+  import Fa from 'svelte-fa'
+  import { faCalendar } from '@fortawesome/free-solid-svg-icons/faCalendar'
   import {debounce} from '../utils/functionUtil'
   import Range from './Range/index.svelte'
   import {events, beforeDate} from '../stores'
@@ -25,8 +27,21 @@
     const [month, day] = selectedDay.split('.')
     const newBeforeDate = DateTime.fromObject({day, month, year:2019}).endOf('day').toISO()
 
+    window.scrollTo(0, 0)
     updateBeforeDate(newBeforeDate)
   }
 </script>
 
+<style>
+  top-icon-wrapper {
+    position: relative;
+    left: -8px;
+    top: -5px;
+    font-size: 18px;
+  }
+</style>
+
+<top-icon-wrapper>
+  <Fa icon={faCalendar} />
+</top-icon-wrapper>
 <Range bind:ratio={ratio} valueText={selectedDay} />

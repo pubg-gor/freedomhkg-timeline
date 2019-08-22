@@ -59,14 +59,12 @@
 
 <style>
   .wrapper {
-    max-width: 700px;
     display: flex;
     flex-direction: column;
   }
   .item {
-    margin: 4px;
+    margin:  12px 12px 0 12px;
     display: flex;
-    padding: 8px;
   }
   .card {
     background-color: white;
@@ -78,8 +76,11 @@
     flex-direction: column;
     padding: 12px;
   }
-  .card :nth-child(2) {
+  .card > * {
     margin-top: 8px;
+  }
+  .card :nth-child(1) {
+    margin-top: 0;
   }
   .datetime {
     flex: 1 0 auto;
@@ -140,6 +141,9 @@
     .time {
       margin-top: 4px;
       width: auto;
+    }
+    .description {
+      line-height: 23px;
     }
 	}
 </style>
