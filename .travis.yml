@@ -15,7 +15,7 @@ install:
   - echo pass
 
 script: 
-  - [[ $TRAVIS_BRANCH == "master" ]] && TARGET_TAG="latest" || TARGET_TAG="dev"
+  - if [[ $TRAVIS_BRANCH == "master" ]]; then TARGET_TAG="latest"; else TARGET_TAG="dev"; fi
   - docker build -t ${AWS_REGISTRY_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/$AWS_ECR_REPO:$TARGET_TAG .
 
 before_deploy:
