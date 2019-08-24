@@ -1,9 +1,11 @@
 import send from '@polka/send-type'
 import { DateTime } from 'luxon'
 import * as R from 'ramda'
+import Sequelize from 'sequelize'
 import { Message, Channel } from '../../drivers/sqlitedb'
 import logger from '../../utils/logger'
 import { isDev } from '../../utils/envUtil'
+const Op = Sequelize.Op
 
 export async function get(req, res) {
   logger.info('/api/events')
@@ -14,6 +16,9 @@ export async function get(req, res) {
     })
   )
   const telegramMessages = await Message.scope(['media']).findAll({
+    where: {
+      [Op.or]: [{ message: { [Op.ne]: '' } }, { mediaId: { [Op.ne]: null } }],
+    },
     order: [['date', 'DESC']],
     ...(req.query.limit && { limit: req.query.limit }),
   })
