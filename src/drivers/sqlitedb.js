@@ -41,6 +41,10 @@ Message.init(
       type: Sequelize.INTEGER,
       field: 'MediaID',
     },
+    serviceAction: {
+      type: Sequelize.TEXT,
+      field: 'ServiceAction',
+    },
   },
   {
     sequelize,

@@ -17,6 +17,7 @@ export async function get(req, res) {
   const telegramMessages = await Message.scope(['media']).findAll({
     where: {
       [Op.or]: [{ message: { [Op.ne]: '' } }, { mediaId: { [Op.ne]: null } }],
+      serviceAction: null, // s.t. it's just a message
     },
     order: [['date', 'DESC']],
     ...(req.query.limit && { limit: req.query.limit }),
