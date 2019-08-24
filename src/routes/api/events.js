@@ -3,6 +3,7 @@ import { DateTime } from 'luxon'
 import * as R from 'ramda'
 import { Message, Channel } from '../../drivers/sqlitedb'
 import logger from '../../utils/logger'
+import { isDev } from '../../utils/envUtil'
 
 export async function get(req, res) {
   logger.info('/api/events')
@@ -18,7 +19,8 @@ export async function get(req, res) {
   })
 
   const data = telegramMessages
-    // .filter(R.path(['media', 'url']))
+    // skip message with media not uploaded to S3 yet
+    .filter(m => isDev || (!m.media || R.path(['media', 'url'], m)))
     .map(({ id, date, message, media, contextId }) => ({
       date: DateTime.fromSeconds(date).toISO(),
       telegramChannel: channels.find(R.propEq('id', contextId)),
@@ -28,8 +30,8 @@ export async function get(req, res) {
       ...(media &&
         media.mimeType === 'image/jpeg' && {
           imgUrl: media.url
-            ? `/s/${media.url}`
-            : `/s/${contextId}/photo-${media.name}.${media.id}.jpg`,
+            ? `/s/${media.url}` // from S3
+            : `/s/${contextId}/photo-${media.name}.${media.id}.jpg`, // dev
         }),
       telegramMessageId: id,
     }))
