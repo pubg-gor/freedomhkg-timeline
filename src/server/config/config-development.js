@@ -8,6 +8,10 @@ module.exports = {
     apiHash: credentials.TELEGRAM_API_HASH,
     phoneNumber: credentials.TELEGRAM_PHONE_NUMBER,
   },
+  // for dev to link photo on cloud
+  cloudfront: {
+    url: '',
+  },
   s3: {
     public: {
       bucketPathForCLI: credentials.S3_PUBLIC_BUCKET_PATH_FOR_CLI,

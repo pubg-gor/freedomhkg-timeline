@@ -2,6 +2,8 @@ import send from '@polka/send-type'
 import { DateTime } from 'luxon'
 import * as R from 'ramda'
 import Sequelize from 'sequelize'
+import { isDev } from '../../utils/envUtil'
+import config from '../../server/config'
 import { Message, Channel } from '../../drivers/sqlitedb'
 import logger from '../../utils/logger'
 const Op = Sequelize.Op
@@ -34,7 +36,9 @@ export async function get(req, res) {
         media.mimeType === 'image/jpeg' && {
           imgUrl: media.url
             ? `/s/${media.url}` // from S3
-            : `/s/${contextId}/photo-${media.name}.${media.id}.jpg`, // dev
+            : `${
+                isDev ? R.path(['cloudfront', 'url'], config) : ''
+              }/s/${contextId}/photo-${media.name}.${media.id}.jpg`, // dev
         }),
       telegramMessageId: id,
     })
