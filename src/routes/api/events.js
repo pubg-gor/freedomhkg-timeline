@@ -4,7 +4,6 @@ import * as R from 'ramda'
 import Sequelize from 'sequelize'
 import { Message, Channel } from '../../drivers/sqlitedb'
 import logger from '../../utils/logger'
-import { isDev } from '../../utils/envUtil'
 const Op = Sequelize.Op
 
 export async function get(req, res) {
@@ -23,10 +22,8 @@ export async function get(req, res) {
     ...(req.query.limit && { limit: req.query.limit }),
   })
 
-  const data = telegramMessages
-    // skip message with media not uploaded to S3 yet
-    .filter(m => isDev || (!m.media || R.path(['media', 'url'], m)))
-    .map(({ id, date, message, media, contextId }) => ({
+  const data = telegramMessages.map(
+    ({ id, date, message, media, contextId }) => ({
       date: DateTime.fromSeconds(date).toISO(),
       telegramChannel: channels.find(R.propEq('id', contextId)),
       ...(message && {
@@ -39,7 +36,8 @@ export async function get(req, res) {
             : `/s/${contextId}/photo-${media.name}.${media.id}.jpg`, // dev
         }),
       telegramMessageId: id,
-    }))
+    })
+  )
 
   send(res, 200, data)
 }
