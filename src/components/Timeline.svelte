@@ -1,21 +1,12 @@
 <script>
-  import goto from '@sapper/app'
-  import {onMount} from 'svelte'
   import * as R from 'ramda'
   import {DateTime} from 'luxon'
 
-  import {getEvents} from '../services/eventService'
   import Description from './Description.svelte'
   import LazyLoad from './LazyLoad.svelte'
-  import {events, eventsForDisplay} from '../stores'
+  import {eventsForDisplay} from '../stores'
 
   let maxVisibleItems = 10
-
-  // fetch data
-  onMount(async () => {
-    events.set(await getEvents({limit: 100}))
-    events.set(await getEvents())
-  })
 
   // reset no. of visible items
   $: ($eventsForDisplay, (() => {

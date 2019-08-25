@@ -1,8 +1,31 @@
 <script>
+  import {onMount} from 'svelte'
+	import URI from 'urijs'
 	import Timeline from '../components/Timeline'
 	import TimelineSearch from '../components/TimelineSearch'
 	import TimelineResultCount from '../components/TimelineResultCount'
 	import TimelineRange from '../components/TimelineRange'
+  import {getEvents} from '../services/eventService'
+  import {events, eventsForDisplay} from '../stores'
+
+	export let fetchedEvents
+	$: events.set(fetchedEvents)
+
+  // fetch data
+  onMount(async () => {
+    events.set(await getEvents())
+	})
+	
+</script>
+
+<script context='module'>
+  export async function preload(page, session) {
+		const response = await this.fetch(
+			URI('/api/events').query({limit: 100}).toString()
+		)
+		const fetchedEvents = await response.json()
+		return {fetchedEvents}
+  }
 </script>
 
 <div class="header">
