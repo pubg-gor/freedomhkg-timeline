@@ -33,6 +33,7 @@ export const eventsForDisplay = derived(
           return R.append(
             {
               ...(description && { description }),
+              rawDate: date,
               date: datetime.toFormat('yyyy LLL dd ccc HH:mm'),
               monthAndDay,
               isSameDayAsPreviousItem,

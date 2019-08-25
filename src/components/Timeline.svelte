@@ -20,6 +20,7 @@
       maxVisibleItems += 10
     }
   }
+  $: console.log('visibleItems dates', visibleItems.map(R.prop('rawDate')))
 </script>
 
 <LazyLoad loadMore={loadMore}>
