@@ -18,30 +18,34 @@ export const eventsForDisplay = derived(
           (description && description.includes($timelineSearch))
       ),
       R.reject(({ date }) => $beforeDate && date > $beforeDate),
-      R.reduce((acc, { description, imgUrl, date, telegramChannel }) => {
-        const datetime = DateTime.fromISO(date)
-        const monthAndDay = datetime.toFormat('L.d')
-        const isSameDayAsPreviousItem = R.pipe(
-          R.last(),
-          R.defaultTo({}),
-          R.propEq('monthAndDay', monthAndDay)
-        )(acc)
-        return R.append(
-          {
-            ...(description && { description }),
-            date: datetime.toFormat('yyyy LLL dd ccc HH:mm'),
-            monthAndDay,
-            isSameDayAsPreviousItem,
-            time: datetime.toFormat('h:mm a'),
-            imgUrl,
-            telegramChannel: {
-              ...telegramChannel,
-              url: `https://t.me/${telegramChannel.name}`,
+      R.reduce(
+        (
+          acc,
+          { description, imgUrl, date, telegramChannel, telegramMessageId }
+        ) => {
+          const datetime = DateTime.fromISO(date)
+          const monthAndDay = datetime.toFormat('L.d')
+          const isSameDayAsPreviousItem = R.pipe(
+            R.last(),
+            R.defaultTo({}),
+            R.propEq('monthAndDay', monthAndDay)
+          )(acc)
+          return R.append(
+            {
+              ...(description && { description }),
+              date: datetime.toFormat('yyyy LLL dd ccc HH:mm'),
+              monthAndDay,
+              isSameDayAsPreviousItem,
+              time: datetime.toFormat('h:mm a'),
+              imgUrl,
+              telegramChannel,
+              telegramMessageUrl: `https://t.me/${telegramChannel.name}/${telegramMessageId}`,
             },
-          },
-          acc
-        )
-      }, [])
+            acc
+          )
+        },
+        []
+      )
     )($events)
   }
 )

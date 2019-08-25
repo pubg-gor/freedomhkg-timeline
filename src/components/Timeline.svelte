@@ -24,14 +24,14 @@
 
 <LazyLoad loadMore={loadMore}>
   <div class='wrapper'>
-    {#each visibleItems as {date, monthAndDay, time, isSameDayAsPreviousItem, description, imgUrl, telegramChannel}}
+    {#each visibleItems as {date, monthAndDay, time, isSameDayAsPreviousItem, description, imgUrl, telegramChannel, telegramMessageUrl}}
       <div class="item">
         <div class='datetime'>
           <div class='date'>{monthAndDay}</div>
           <div class='time'>{time}</div>
         </div>
         <div class='card'>
-          <a class='channel-title' href={telegramChannel.url} target="_blank">
+          <a class='channel-title' href={telegramMessageUrl} target="_blank">
             {telegramChannel.title}
           </a>
           {#if imgUrl}

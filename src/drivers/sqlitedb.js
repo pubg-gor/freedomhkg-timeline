@@ -123,6 +123,11 @@ Channel.init(
       field: 'Title',
       allowNull: false,
     },
+    name: {
+      type: Sequelize.TEXT,
+      field: 'Username',
+      allowNull: false,
+    },
     pictureId: {
       type: Sequelize.INTEGER,
       field: 'PictureID',
