@@ -1,6 +1,6 @@
 import { writable, derived } from 'svelte/store'
 import * as R from 'ramda'
-import { DateTime } from '../utils/luxon'
+import { DateTime } from 'luxon'
 
 export const timelineSearch = writable('')
 
@@ -10,7 +10,7 @@ export const events = writable([])
 
 export const eventsForDisplay = derived(
   [events, timelineSearch, beforeDate],
-  ([$events, $timelineSearch, $beforeDate]) => {
+  R.memoizeWith(R.identity, ([$events, $timelineSearch, $beforeDate]) => {
     return R.pipe(
       R.filter(
         ({ description }) =>
@@ -48,7 +48,7 @@ export const eventsForDisplay = derived(
         []
       )
     )($events)
-  }
+  })
 )
 
 export const eventsForDisplayCount = derived(
