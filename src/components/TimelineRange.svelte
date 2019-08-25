@@ -10,7 +10,7 @@
 
   $: sortedDates = R.pipe(
     R.map(R.prop('date')),
-    R.sort(R.gt),
+    R.sort(R.descend(R.identity)),
   )($events)
 
   $: dateRange = R.ap([R.head, R.last], [sortedDates])
