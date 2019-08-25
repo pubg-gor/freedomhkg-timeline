@@ -1,6 +1,6 @@
 <script>
   import * as R from 'ramda'
-  import {DateTime} from 'luxon'
+  import {DateTime} from '../utils/luxon'
 
   import Description from './Description.svelte'
   import LazyLoad from './LazyLoad.svelte'

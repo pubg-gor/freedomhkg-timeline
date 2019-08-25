@@ -1,5 +1,5 @@
 import send from '@polka/send-type'
-import { DateTime } from 'luxon'
+import { DateTime } from '../../utils/luxon'
 import * as R from 'ramda'
 import Sequelize from 'sequelize'
 import { isDev } from '../../utils/envUtil'

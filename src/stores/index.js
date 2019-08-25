@@ -1,6 +1,6 @@
 import { writable, derived } from 'svelte/store'
 import * as R from 'ramda'
-import { DateTime } from 'luxon'
+import { DateTime } from '../utils/luxon'
 
 export const timelineSearch = writable('')
 
