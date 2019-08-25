@@ -10,7 +10,7 @@ module.exports = {
   },
   // for dev to link photo on cloud
   cloudfront: {
-    url: 'https://d1eandlx8jwqrq.cloudfront.net',
+    url: '',
   },
   s3: {
     public: {
