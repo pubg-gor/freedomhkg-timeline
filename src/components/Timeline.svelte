@@ -25,7 +25,7 @@
 
 <LazyLoad loadMore={loadMore}>
   <div class='wrapper'>
-    {#each visibleItems as {date, monthAndDay, time, isSameDayAsPreviousItem, description, imgUrl, telegramChannel, telegramMessageUrl}}
+    {#each visibleItems as {date, monthAndDay, time, description, imgUrl, telegramChannel, telegramMessageUrl}}
       <div class="item">
         <div class='datetime'>
           <div class='date'>{monthAndDay}</div>
