@@ -23,7 +23,6 @@ export const eventsForDisplay = derived(
           const datetime = DateTime.fromISO(date)
           return {
             ...(description && { description }),
-            rawDate: date,
             date: datetime.toFormat('yyyy LLL dd ccc HH:mm'),
             monthAndDay: datetime.toFormat('L.d'),
             time: datetime.toFormat('h:mm a'),
