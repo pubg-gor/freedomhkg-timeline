@@ -41,10 +41,6 @@
     width: 80px;
     height: 300px;
 	}
-	.wrapper {
-		/* background-color: grey; */
-		
-	}
 	.bar {
 		position: absolute;
 		height: 300px;
@@ -67,29 +63,24 @@
 		border-bottom: 5px solid transparent;
 
 		border-right: 10px solid #f00;
-		/* transform: translate(0, -50%); */
 	}
 	.pointer-box {
 		user-select: none;
 		background: white;
 		width: 60px;
 		height: 40px;
-		/* transform: translate(0, -50%); */
 		display: flex;
 		justify-content: center;
 		align-items: center;
 		cursor: ns-resize;
+    border: solid 1px #f1f1f1;
 		border-radius: 4px;
     box-shadow: 2px 2px #0000001f;
 	}
 </style>
 
 <div class='container'>
-	
-<div class='wrapper'>
-	<div class='bar' bind:this={bar}>
-		
-	</div>
+	<div class='bar' bind:this={bar} />
 	<div class="drag-box"
 		use:pannable
 		on:panstart={handlePanStart}
@@ -104,7 +95,4 @@
 			{valueText || ratio}
 		</div>
 	</div>
-
-</div>
-	
 </div>

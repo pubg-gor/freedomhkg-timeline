@@ -8,6 +8,10 @@
   import {events, beforeDate} from '../stores'
   let ratio
 
+  $: topTipsStyle = `
+    visibility: ${ratio > 0 ? 'hidden' : 'visible'};
+  `
+
   $: sortedDates = R.pipe(
     R.map(R.prop('date')),
     R.sort(R.descend(R.identity)),
@@ -33,15 +37,41 @@
 </script>
 
 <style>
+  timeline-range {
+    display: flex;
+    flex-direction: column;
+  }
+  top-tips {
+    transform: translateX(-50%);
+    display: flex;
+    justify-content: center;
+    margin-bottom: 12px;
+    font-size: 14px;
+    color: #cccccc;
+
+    animation: blinker 1s linear infinite;
+  }
   top-icon-wrapper {
-    position: relative;
-    left: -8px;
-    top: -5px;
     font-size: 18px;
+    transform: translateX(-50%);
+    display: flex;
+    justify-content: center;
+    margin-bottom: 8px;
+  }
+
+  @keyframes blinker {
+    50% {
+      opacity: 0.7;
+    }
   }
 </style>
 
-<top-icon-wrapper>
-  <Fa icon={faCalendar} />
-</top-icon-wrapper>
-<Range bind:ratio={ratio} valueText={selectedDay} />
+<timeline-range>
+  <top-tips style={topTipsStyle}>
+    拖動以選擇日期
+  </top-tips>
+  <top-icon-wrapper>
+    <Fa icon={faCalendar} />
+  </top-icon-wrapper>
+  <Range bind:ratio={ratio} valueText={selectedDay} />
+</timeline-range>
