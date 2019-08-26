@@ -35,10 +35,12 @@
 
 <page-wrapper>
 	<search-info>
-		<TimelineSearch />
-		<count-wrapper>
-			<TimelineResultCount />
-		</count-wrapper>
+		<search-info-inner>
+			<TimelineSearch />
+			<count-wrapper>
+				<TimelineResultCount />
+			</count-wrapper>
+		</search-info-inner>
 	</search-info>
 
 	<content-wrapper>
@@ -64,6 +66,7 @@
     width: 780px;
 		display: flex;
     flex-direction: column;
+		justify-content: center;
 	}
 
 	time-range-wrapper {
@@ -94,16 +97,22 @@
 
 	search-info {
 		display: flex;
+		justify-content: center;
+		margin-bottom: 12px;
+	}
+
+	search-info-inner {
+		display: flex;
+		flex-direction: column;
+
     align-items: center;
 		justify-content: center;
-		position: relative;
-		margin-bottom: 52px;
 	}
 
 	count-wrapper {
-		position: absolute;
-		margin-right: 16px;
-		right: 0;
+		align-self: flex-end;
+		margin-top: 4px;
+		margin-right: 18px;
 		display: flex;
 		align-items: center;
 	}
