@@ -56,7 +56,7 @@
 	.drag-box {
     user-select: none;
 		position: relative;
-		left: 1px;
+		left: 2px;
 		display: flex;
     align-items: center;
 	}

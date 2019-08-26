@@ -1,6 +1,7 @@
 <script>
   import {onMount} from 'svelte'
 	import URI from 'urijs'
+	import Nav from '../components/Nav'
 	import Timeline from '../components/Timeline'
 	import TimelineSearch from '../components/TimelineSearch'
 	import TimelineResultCount from '../components/TimelineResultCount'
@@ -28,44 +29,35 @@
   }
 </script>
 
-<div class="header">
-  <h1>HK Freedom Timeline</h1>
-	<p>The darkest hours, before dawn </p>
-</div>
+<Nav />
+
+<h1>News Feed</h1>
 
 <page-wrapper>
-		<div class='search-info'>
-			<TimelineSearch />
-			<div class='count-wrapper'>
-				<TimelineResultCount />
-			</div>
-		</div>
+	<search-info>
+		<TimelineSearch />
+		<count-wrapper>
+			<TimelineResultCount />
+		</count-wrapper>
+	</search-info>
 
 	<content-wrapper>
 		<Timeline />
 		<time-range-wrapper>
 			<TimelineRange />
 		</time-range-wrapper>
-
 	</content-wrapper>
 
 </page-wrapper>
 
 <style>
-	h1, p {
-		text-align: center;
-		margin: 0 auto;
-	}
-
 	h1 {
-		font-size: 2.8em;
-		text-transform: uppercase;
+		text-align: center;
+		font-size: 48px;
+		line-height: 52px;
 		font-weight: 700;
-    margin: 16px 8px;
-	}
-
-	p {
-		margin: 1em auto;
+		margin-top: 64px;
+		margin-bottom: 32px;
 	}
 
 	page-wrapper {
@@ -99,15 +91,20 @@
 		width: 100%;
 		display: flex;
 	}
-	.search-info {
+
+	search-info {
 		display: flex;
     align-items: center;
 		justify-content: center;
 		position: relative;
+		margin-bottom: 52px;
 	}
-	.count-wrapper {
+
+	count-wrapper {
 		position: absolute;
 		margin-right: 16px;
 		right: 0;
+		display: flex;
+		align-items: center;
 	}
 </style>

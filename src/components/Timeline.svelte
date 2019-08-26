@@ -77,7 +77,7 @@
     flex: 1 0 auto;
     margin-right: 4px;
     padding: 12px 4px 12px 12px;
-    width: 113px;
+    /* width: 113px; */
     height: 28px;
 
     position: sticky;
@@ -91,6 +91,8 @@
   .date {
     font-size: 30px;
     line-height: 28px;
+    width: 60px;
+    text-align: right;
   }
   .time {
     font-size: 12px;
