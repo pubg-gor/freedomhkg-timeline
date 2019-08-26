@@ -41,6 +41,10 @@ Message.init(
       type: Sequelize.INTEGER,
       field: 'MediaID',
     },
+    serviceAction: {
+      type: Sequelize.TEXT,
+      field: 'ServiceAction',
+    },
   },
   {
     sequelize,
@@ -117,6 +121,11 @@ Channel.init(
     title: {
       type: Sequelize.TEXT,
       field: 'Title',
+      allowNull: false,
+    },
+    name: {
+      type: Sequelize.TEXT,
+      field: 'Username',
       allowNull: false,
     },
     pictureId: {

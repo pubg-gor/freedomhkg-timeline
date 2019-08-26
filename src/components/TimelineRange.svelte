@@ -1,6 +1,6 @@
 <script>
   import * as R from 'ramda'
-  import {DateTime} from 'luxon'
+  import {DateTime} from '../utils/luxon'
   import Fa from 'svelte-fa'
   import { faCalendar } from '@fortawesome/free-solid-svg-icons/faCalendar'
   import {debounce} from '../utils/functionUtil'
@@ -10,7 +10,7 @@
 
   $: sortedDates = R.pipe(
     R.map(R.prop('date')),
-    R.sort(R.gt),
+    R.sort(R.descend(R.identity)),
   )($events)
 
   $: dateRange = R.ap([R.head, R.last], [sortedDates])
@@ -25,7 +25,7 @@
   $: updateBeforeDate = debounce(100, beforeDate.set)()
   $: if (selectedDay) {
     const [month, day] = selectedDay.split('.')
-    const newBeforeDate = DateTime.fromObject({day, month, year:2019}).endOf('day').toISO()
+    const newBeforeDate = DateTime.fromObject({ day, month, year:2019 }).endOf('day').toISO()
 
     window.scrollTo(0, 0)
     updateBeforeDate(newBeforeDate)

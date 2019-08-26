@@ -1,21 +1,12 @@
 <script>
-  import goto from '@sapper/app'
-  import {onMount} from 'svelte'
   import * as R from 'ramda'
-  import {DateTime} from 'luxon'
+  import {DateTime} from '../utils/luxon'
 
-  import {getEvents} from '../services/eventService'
   import Description from './Description.svelte'
   import LazyLoad from './LazyLoad.svelte'
-  import {events, eventsForDisplay} from '../stores'
+  import {eventsForDisplay} from '../stores'
 
   let maxVisibleItems = 10
-
-  // fetch data
-  onMount(async () => {
-    events.set(await getEvents({limit: 100}))
-    events.set(await getEvents())
-  })
 
   // reset no. of visible items
   $: ($eventsForDisplay, (() => {
@@ -33,14 +24,14 @@
 
 <LazyLoad loadMore={loadMore}>
   <div class='wrapper'>
-    {#each visibleItems as {date, monthAndDay, time, isSameDayAsPreviousItem, description, imgUrl, telegramChannel}}
+    {#each visibleItems as {date, monthAndDay, time, description, imgUrl, telegramChannel, telegramMessageUrl}}
       <div class="item">
         <div class='datetime'>
           <div class='date'>{monthAndDay}</div>
           <div class='time'>{time}</div>
         </div>
         <div class='card'>
-          <a class='channel-title' href={telegramChannel.url} target="_blank">
+          <a class='channel-title' href={telegramMessageUrl} target="_blank">
             {telegramChannel.title}
           </a>
           {#if imgUrl}

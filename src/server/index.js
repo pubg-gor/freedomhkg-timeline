@@ -16,6 +16,6 @@ const dev = NODE_ENV === 'development'
     .use('/s', sirv('tg-media', { dev }))
     .use(sapper.middleware())
     .listen(PORT, err => {
-      if (err) console.log('error', err)
+      if (err) logger.error(err)
     })
 })()
