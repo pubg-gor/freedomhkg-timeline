@@ -15,6 +15,7 @@
 		margin: 0 auto;
 		box-sizing: border-box;
 		min-height: 100vh;
+    background: #e9ebee;
 	}
 </style>
 
