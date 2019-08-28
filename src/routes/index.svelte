@@ -112,7 +112,7 @@
 	count-wrapper {
 		align-self: flex-end;
 		margin-top: 4px;
-		margin-right: 18px;
+		margin-right: 4px;
 		display: flex;
 		align-items: center;
 	}

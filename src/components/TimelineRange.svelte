@@ -47,7 +47,7 @@
     justify-content: center;
     margin-bottom: 12px;
     font-size: 14px;
-    color: #cccccc;
+    color: #616161;
 
     animation: blinker 1s linear infinite;
   }
