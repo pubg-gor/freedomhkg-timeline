@@ -6,7 +6,8 @@
 
 <style>
 	* {
-		font-family: system-ui;
+		font-family: 'Noto Sans HK', sans-serif;
+    letter-spacing: 0.3px;
 	}
 	main {
 		display: flex;
