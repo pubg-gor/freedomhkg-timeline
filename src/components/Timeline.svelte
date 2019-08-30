@@ -31,12 +31,12 @@
           <div class='time'>{time}</div>
         </div>
         <div class='card'>
-          {#if imgUrl}
-            <img class='image' src={encodeURI(imgUrl).replace('+','%2B')} alt={date} />
-          {/if}
           <a class='channel-title' href={telegramMessageUrl} target="_blank">
             {telegramChannel.title}
           </a>
+          {#if imgUrl}
+            <img class='image' src={encodeURI(imgUrl).replace('+','%2B')} alt={date} />
+          {/if}
           {#if description}
             <div class='description'>
                 <Description description={description} />
@@ -65,7 +65,6 @@
     width: 100%;
     display: flex;
     flex-direction: column;
-    padding-bottom: 12px;
   }
   .datetime {
     flex: 1 0 auto;
@@ -94,31 +93,30 @@
     text-align: right;
   }
   .channel-title {
-    border: solid 1px #5fc2e8;
-    font-size: 10px;
-    background: #f1fcff;
-    border-radius: 10px;
-    padding: 2px 6px;
-    width: fit-content;
-    margin: 12px 12px 0 12px;
-
     color: initial;
+    color: grey;
+    font-size: 12px;
+    font-weight: bold;
+    border-radius: 10px;
+    margin: 6px 12px 0 12px;
+    border-radius: 8px 8px 0 0;
+
     text-decoration: none;
   }
   .description {
 		line-height: 26px;
-    margin: 4px 12px 0px 12px;
+    margin: 8px 12px 12px 12px;
   }
   .image {
     width: 100%;
     height: auto;
-    border-radius: 8px 8px 0 0;
+    margin-top: 6px;
+  }
+  .image:last-child {
+    border-radius: 0 0 8px 8px;
   }
 
 	@media (max-width: 768px) {
-    .card {
-      padding: 8px;
-    }
 		.datetime {
       flex-direction: column;
       height: auto;
