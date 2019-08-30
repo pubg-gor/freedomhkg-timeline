@@ -31,12 +31,12 @@
           <div class='time'>{time}</div>
         </div>
         <div class='card'>
-          <a class='channel-title' href={telegramMessageUrl} target="_blank">
-            {telegramChannel.title}
-          </a>
           {#if imgUrl}
             <img class='image' src={encodeURI(imgUrl).replace('+','%2B')} alt={date} />
           {/if}
+          <a class='channel-title' href={telegramMessageUrl} target="_blank">
+            {telegramChannel.title}
+          </a>
           {#if description}
             <div class='description'>
                 <Description description={description} />
@@ -65,13 +65,7 @@
     width: 100%;
     display: flex;
     flex-direction: column;
-    padding: 12px;
-  }
-  .card > * {
-    margin-top: 8px;
-  }
-  .card :nth-child(1) {
-    margin-top: 0;
+    padding-bottom: 12px;
   }
   .datetime {
     flex: 1 0 auto;
@@ -106,17 +100,19 @@
     border-radius: 10px;
     padding: 2px 6px;
     width: fit-content;
+    margin: 12px 12px 0 12px;
 
     color: initial;
     text-decoration: none;
   }
   .description {
 		line-height: 26px;
+    margin: 4px 12px 0px 12px;
   }
   .image {
     width: 100%;
     height: auto;
-    border-radius: 8px;
+    border-radius: 8px 8px 0 0;
   }
 
 	@media (max-width: 768px) {
