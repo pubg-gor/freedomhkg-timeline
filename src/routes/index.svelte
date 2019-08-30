@@ -6,6 +6,7 @@
 	import TimelineSearch from '../components/TimelineSearch'
 	import TimelineResultCount from '../components/TimelineResultCount'
 	import TimelineRange from '../components/TimelineRange'
+	import TopSearchBar from '../components/TopSearchBar'
   import {getEvents} from '../services/eventService'
   import {events, eventsForDisplay} from '../stores'
 
@@ -30,9 +31,7 @@
 </script>
 
 <Nav />
-
 <h1>抗爭動態</h1>
-
 <page-wrapper>
 	<search-info>
 		<search-info-inner>
@@ -49,8 +48,9 @@
 			<TimelineRange />
 		</time-range-wrapper>
 	</content-wrapper>
-
 </page-wrapper>
+
+<TopSearchBar />
 
 <style>
 	h1 {

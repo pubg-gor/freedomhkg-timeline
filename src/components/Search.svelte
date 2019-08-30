@@ -5,6 +5,7 @@
   import {debounce} from '../utils/functionUtil'
   const dispatch = createEventDispatcher()
 
+  export let manualEnter
   export let text
 
   function search() {
@@ -20,7 +21,9 @@
   }
 
   $: searchDebounced = debounce(100, search)()
-  $: searchDebounced(text)
+  $: if (!manualEnter) {
+    searchDebounced(text)
+  }
 
 </script>
 
