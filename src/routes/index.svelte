@@ -31,7 +31,7 @@
 
 <Nav />
 
-<h1>News Feed</h1>
+<h1>抗爭動態</h1>
 
 <page-wrapper>
 	<search-info>
