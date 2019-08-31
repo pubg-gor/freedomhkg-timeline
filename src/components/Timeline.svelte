@@ -75,7 +75,7 @@
 
     position: sticky;
     position: -webkit-sticky;
-    top: 4px;
+    top: 35px;
 
     display: flex;
     justify-content: flex-end;
