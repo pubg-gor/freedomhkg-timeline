@@ -6,6 +6,7 @@
 	import TimelineResultCount from '../components/TimelineResultCount'
 	import TimelineRange from '../components/TimelineRange'
 	import TopSearchBar from '../components/TopSearchBar'
+	import HorizontalScrollRange from '../components/HorizontalScrollRange'
   import { getEvents } from '../services/eventService'
   import { events } from '../stores'
 
@@ -53,6 +54,10 @@
 
 <TopSearchBar />
 
+<bottom-scroll-range-wrapper>
+	<HorizontalScrollRange />
+</bottom-scroll-range-wrapper>
+
 <style>
 	h1 {
 		text-align: center;
@@ -81,12 +86,19 @@
 		}
 	}
 
+	bottom-scroll-range-wrapper {
+		display: none;
+	}
+
 	@media (max-width: 768px) {
 		page-wrapper {
 			width: auto;
 		}
 		time-range-wrapper {
 			display: none;
+		}
+		bottom-scroll-range-wrapper {
+			display: initial;
 		}
 	}
 
