@@ -1,14 +1,13 @@
 <script>
-  import {onMount} from 'svelte'
-	import URI from 'urijs'
+  import { onMount } from 'svelte'
 	import Nav from '../components/Nav'
 	import Timeline from '../components/Timeline'
 	import TimelineSearch from '../components/TimelineSearch'
 	import TimelineResultCount from '../components/TimelineResultCount'
 	import TimelineRange from '../components/TimelineRange'
 	import TopSearchBar from '../components/TopSearchBar'
-  import {getEvents} from '../services/eventService'
-  import {events, eventsForDisplay} from '../stores'
+  import { getEvents } from '../services/eventService'
+  import { events } from '../stores'
 
 	export let fetchedEvents
 	$: events.set(fetchedEvents)
@@ -21,12 +20,14 @@
 </script>
 
 <script context='module'>
-  export async function preload(page, session) {
+	import URI from 'urijs'
+
+  export async function preload() {
 		const response = await this.fetch(
-			URI('/api/events').query({limit: 100}).toString()
+			URI('/api/events').query({ limit: 100 }).toString()
 		)
 		const fetchedEvents = await response.json()
-		return {fetchedEvents}
+		return { fetchedEvents }
   }
 </script>
 
