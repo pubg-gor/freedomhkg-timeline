@@ -18,7 +18,17 @@ export async function get(req, res) {
   )
   const telegramMessages = await Message.scope(['media']).findAll({
     where: {
-      [Op.or]: [{ message: { [Op.ne]: '' } }, { mediaId: { [Op.ne]: null } }],
+      [Op.or]: [
+        { message: { [Op.ne]: '' } },
+        {
+          [Op.and]: [
+            { mediaId: { [Op.ne]: null } },
+            // uploaded jpg images only
+            // no sticker image (not downloaded by telegram-export)
+            { '$media.mimeType$': 'image/jpeg' },
+          ],
+        },
+      ],
       serviceAction: null, // s.t. it's just a message
     },
     order: [['date', 'DESC']],
@@ -32,14 +42,13 @@ export async function get(req, res) {
       ...(message && {
         description: message,
       }),
-      ...(media &&
-        media.mimeType === 'image/jpeg' && {
-          imgUrl: media.url
-            ? `/s/${media.url}` // from S3
-            : `${
-                isDev ? R.path(['cloudfront', 'url'], config) : ''
-              }/s/${contextId}/photo-${media.name}.${media.id}.jpg`, // dev
-        }),
+      ...(media && {
+        imgUrl: media.url
+          ? `/s/${media.url}` // from S3
+          : `${
+              isDev ? R.path(['cloudfront', 'url'], config) : ''
+            }/s/${contextId}/photo-${media.name}.${media.id}.jpg`, // dev
+      }),
       telegramMessageId: id,
     })
   )
