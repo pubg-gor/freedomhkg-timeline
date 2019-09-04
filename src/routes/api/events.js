@@ -17,6 +17,7 @@ export async function get(req, res) {
     })
   )
   const telegramMessages = await Message.scope(['media']).findAll({
+    attributes: { exclude: ['serviceAction'] },
     where: {
       [Op.or]: [
         { message: { [Op.ne]: '' } },
