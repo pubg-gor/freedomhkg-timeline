@@ -1,13 +1,13 @@
 <script>
   import * as R from 'ramda'
   import { DateTime } from '../utils/luxon'
-  import { beforeDate, dateRangeData } from '../stores'
+  import { beforeDate, dateRangeData, loading } from '../stores'
   import { debounce } from '../utils/functionUtil'
   
   let itemDoms = []
   let selectedDay
 
-  function onScroll(e) {
+  function onScroll() {
     selectedDay = R.pipe(
       R.map(ele => ele.getBoundingClientRect()),
       R.findIndex(({ x, width }) => x > -width),
@@ -39,14 +39,23 @@
   }
   inner-bar {
     display: flex;
+    align-items: center;
+    justify-content: center;
     flex: 1 0 auto;
     padding-right: calc(100vw - var(--range-item-width));
+    height: 44px;
   }
   range-item {
-    padding: 10px 16px;
     width: var(--range-item-width);
     border-left: solid 1px #efefef;
-    text-align: right;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 16px;
+  }
+  loading-placeholder {
+    width: 100vw;
+    text-align: center;
   }
 </style>
 
@@ -57,9 +66,13 @@
   "
 >
   <inner-bar>
-    {#each $dateRangeData.monthDays as monthDay, index}
-      <range-item bind:this={itemDoms[index]}>{monthDay}</range-item>
-    {/each}
+    {#if $loading}
+      <loading-placeholder>Loading...</loading-placeholder>
+    {:else}
+      {#each $dateRangeData.monthDays as monthDay, index}
+        <range-item bind:this={itemDoms[index]}>{monthDay}</range-item>
+      {/each}
+    {/if}
   </inner-bar>
 </horizontal-scroll-range>
 

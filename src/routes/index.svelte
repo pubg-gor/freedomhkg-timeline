@@ -8,14 +8,15 @@
 	import TopSearchBar from '../components/TopSearchBar'
 	import HorizontalScrollRange from '../components/HorizontalScrollRange'
   import { getEvents } from '../services/eventService'
-  import { events } from '../stores'
+  import { events, loading } from '../stores'
 
 	export let fetchedEvents
 	$: events.set(fetchedEvents)
 
   // fetch data
   onMount(async () => {
-    events.set(await getEvents())
+		events.set(await getEvents())
+		loading.set(false)
 	})
 	
 </script>

@@ -6,6 +6,8 @@ export const timelineSearch = writable('')
 
 export const beforeDate = writable('')
 
+export const loading = writable(true)
+
 export const events = writable([])
 
 export const dateRangeData = derived([events], ([$events]) => {
