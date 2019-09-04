@@ -83,10 +83,10 @@ Media.init(
       type: Sequelize.TEXT,
       field: 'Type',
     },
-    extra: {
-      type: Sequelize.INTEGER,
-      field: 'Extra',
-    },
+    // extra: {
+    //   type: Sequelize.INTEGER,
+    //   field: 'Extra',
+    // },
     url: {
       type: Sequelize.TEXT,
       field: 'Url',
