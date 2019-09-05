@@ -65,8 +65,9 @@
     transform: translateY(-50%);
   }
   close-icon {
+    padding: 4px 10px;
     position: absolute;
-    right: 18px;
+    right: 8px;
     top: 50%;
     color: #c5c5c5;
     transform: translateY(-50%);
