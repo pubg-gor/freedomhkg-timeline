@@ -13,11 +13,30 @@ const dev = NODE_ENV === 'development'
   logger.info('NODE_ENV:', NODE_ENV)
 
   polka() // You can also use Express
-    .use(helmet())
-    .use(json(), compression({ threshold: 0 }))
+    .use(
+      helmet(),
+      json(), 
+      compression({ threshold: 0 })
+    )
     .use('/s', sirv('tg-media', { dev }))
-    .use(sapper.middleware())
+    .use(overrideSetHeader, sapper.middleware())
     .listen(PORT, err => {
       if (err) logger.error(err)
     })
 })()
+
+// https://github.com/sveltejs/sapper/issues/567
+function overrideSetHeader(req, res, next) {
+  const origSetHeader = res.setHeader
+  res.setHeader = function (key, value) {
+    if (key === 'Cache-Control') {
+      // HTML files
+      if (value === 'max-age=600') { 
+        return origSetHeader.apply(this, ['Cache-Control', 'no-cache'])
+      }
+    }
+
+    return origSetHeader.apply(this, arguments)
+  }
+  return next()
+}
