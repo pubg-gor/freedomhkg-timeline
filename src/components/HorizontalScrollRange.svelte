@@ -40,6 +40,7 @@
     left: 0;
     bottom: 0;
     width: 100%;
+    height: 44px;
     background: white;
     overflow: auto;
     display: flex;
@@ -53,7 +54,6 @@
     flex: 1 0 auto;
     padding-left: calc(50vw - var(--range-item-width) / 2);
     padding-right: calc(100vw - var(--range-item-width));
-    height: 44px;
   }
   range-item {
     width: var(--range-item-width);
@@ -70,6 +70,9 @@
   loading-placeholder {
     width: 100vw;
     text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
   down-pointer {
     position: fixed;
@@ -89,15 +92,17 @@
     --range-item-width: 90px;
   "
 >
-  <inner-bar>
-    {#if ($loading && false)}
-      <loading-placeholder>Loading...</loading-placeholder>
-    {:else}
+  {#if $loading}
+    <loading-placeholder>Loading...</loading-placeholder>
+  {:else}
+    <inner-bar>
       {#each $dateRangeData.monthDays as monthDay, index}
         <range-item bind:this={itemDoms[index]} class:selected={selectedDay === monthDay}>{monthDay}</range-item>
       {/each}
-    {/if}
-  </inner-bar>
+    </inner-bar>
+  {/if}
 </horizontal-scroll-range>
 
-<down-pointer />
+{#if !$loading}
+  <down-pointer />
+{/if}
