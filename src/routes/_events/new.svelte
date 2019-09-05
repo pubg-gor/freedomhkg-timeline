@@ -1,10 +1,9 @@
 
 <script>
-  import {onMount} from 'svelte'
+  import { onMount } from 'svelte'
   import * as sapper from '@sapper/app'
-  import * as R from 'ramda'
-  import {DateTime} from 'luxon'
-  import {createEvent} from '../../services/eventService'
+  import { DateTime } from 'luxon'
+  import { createEvent } from '../../services/eventService'
 
   let formData = {
     description: 'first custom event!',
@@ -20,7 +19,7 @@
 
   onMount(async () => {
     console.log('create event')
-    await createEvent({a: 1})
+    await createEvent({ a: 1 })
   })
 
 </script>
