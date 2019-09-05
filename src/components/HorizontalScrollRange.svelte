@@ -53,7 +53,7 @@
     flex: 1 0 auto;
     padding-left: calc(50vw - var(--range-item-width) / 2);
     padding-right: calc(100vw - var(--range-item-width));
-    height: var(--bar-height);
+    height: 44px;
   }
   range-item {
     width: var(--range-item-width);
@@ -74,7 +74,7 @@
   down-pointer {
     position: fixed;
     left: 50vw;
-    bottom: calc(var(--bar-height) - 8px);
+    bottom: calc(44px - 8px);
 		border-left: 3px solid transparent;
 		border-right: 3px solid transparent;
 
@@ -89,7 +89,6 @@
     --range-item-width: 90px;
   "
 >
-  <down-pointer />
   <inner-bar>
     {#if ($loading && false)}
       <loading-placeholder>Loading...</loading-placeholder>
@@ -101,3 +100,4 @@
   </inner-bar>
 </horizontal-scroll-range>
 
+<down-pointer />
