@@ -3,6 +3,7 @@ import polka from 'polka'
 import { json } from 'body-parser'
 import compression from 'compression'
 import * as sapper from '@sapper/server'
+import helmet from 'helmet'
 import logger from '../utils/logger'
 
 const { PORT, NODE_ENV } = process.env
@@ -12,6 +13,7 @@ const dev = NODE_ENV === 'development'
   logger.info('NODE_ENV:', NODE_ENV)
 
   polka() // You can also use Express
+    .use(helmet())
     .use(json(), compression({ threshold: 0 }))
     .use('/s', sirv('tg-media', { dev }))
     .use(sapper.middleware())
