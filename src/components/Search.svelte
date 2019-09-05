@@ -1,9 +1,9 @@
 <script>
-  import {createEventDispatcher} from 'svelte'
+  import { createEventDispatcher } from 'svelte'
   import Fa from 'svelte-fa'
   import { faSearch } from '@fortawesome/free-solid-svg-icons/faSearch'
   import { faTimes } from '@fortawesome/free-solid-svg-icons/faTimes'
-  import {debounce} from '../utils/functionUtil'
+  import { debounce } from '../utils/functionUtil'
   const dispatch = createEventDispatcher()
 
   export let manualEnter
@@ -12,19 +12,21 @@
   let input
 
   function search() {
-    dispatch('search', {text})
+    dispatch('search', { text })
   }
 
   function onKeyUp(e) {
-    if (!e) e = window.event;
-    const keyCode = e.keyCode || e.which;
+    if (!e) {
+      e = window.event
+    }
+    const keyCode = e.keyCode || e.which
     if (keyCode === 13){
       search()
     }
   }
 
-  function resetSearch(e) {
-    dispatch('search', {text: ''})
+  function resetSearch() {
+    dispatch('search', { text: '' })
     input.focus()
   }
 
