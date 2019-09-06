@@ -5,22 +5,14 @@
   import { faCalendar } from '@fortawesome/free-solid-svg-icons/faCalendar'
   import {debounce} from '../utils/functionUtil'
   import Range from './Range/index.svelte'
-  import {events, beforeDate} from '../stores'
+  import { beforeDate, dateRangeData } from '../stores'
   let ratio
 
-  $: sortedDates = R.pipe(
-    R.map(R.prop('date')),
-    R.sort(R.descend(R.identity)),
-  )($events)
+  $: topTipsStyle = `
+    visibility: ${ratio > 0 ? 'hidden' : 'visible'};
+  `
 
-  $: dateRange = R.ap([R.head, R.last], [sortedDates])
-
-  $: maxDate = DateTime.fromISO(dateRange[0]).endOf('day')
-  $: minDate = DateTime.fromISO(dateRange[1]).startOf('day')
-  $: dayCount = Math.ceil(maxDate.diff(minDate, 'days').toObject().days)
-  $: monthDays = R.range(0, dayCount).map(i => maxDate.minus({days: i}).toFormat('L.d'))
-
-  $: selectedDay = monthDays[Math.floor(ratio*(dayCount-1) + 0.5)]
+  $: selectedDay = $dateRangeData.monthDays[Math.floor(ratio*($dateRangeData.dayCount-1) + 0.5)]
 
   $: updateBeforeDate = debounce(100, beforeDate.set)()
   $: if (selectedDay) {
@@ -33,15 +25,41 @@
 </script>
 
 <style>
+  timeline-range {
+    display: flex;
+    flex-direction: column;
+  }
+  top-tips {
+    transform: translateX(-50%);
+    display: flex;
+    justify-content: center;
+    margin-bottom: 12px;
+    font-size: 14px;
+    color: #616161;
+
+    animation: blinker 1s linear infinite;
+  }
   top-icon-wrapper {
-    position: relative;
-    left: -8px;
-    top: -5px;
     font-size: 18px;
+    transform: translateX(-50%);
+    display: flex;
+    justify-content: center;
+    margin-bottom: 8px;
+  }
+
+  @keyframes blinker {
+    50% {
+      opacity: 0.7;
+    }
   }
 </style>
 
-<top-icon-wrapper>
-  <Fa icon={faCalendar} />
-</top-icon-wrapper>
-<Range bind:ratio={ratio} valueText={selectedDay} />
+<timeline-range>
+  <top-tips style={topTipsStyle}>
+    拖動以選擇日期
+  </top-tips>
+  <top-icon-wrapper>
+    <Fa icon={faCalendar} />
+  </top-icon-wrapper>
+  <Range bind:ratio={ratio} valueText={selectedDay} />
+</timeline-range>

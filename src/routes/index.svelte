@@ -1,77 +1,79 @@
 <script>
-  import {onMount} from 'svelte'
-	import URI from 'urijs'
+  import { onMount } from 'svelte'
+	import Nav from '../components/Nav'
 	import Timeline from '../components/Timeline'
 	import TimelineSearch from '../components/TimelineSearch'
 	import TimelineResultCount from '../components/TimelineResultCount'
 	import TimelineRange from '../components/TimelineRange'
-  import {getEvents} from '../services/eventService'
-  import {events, eventsForDisplay} from '../stores'
+	import TopSearchBar from '../components/TopSearchBar'
+	import HorizontalScrollRange from '../components/HorizontalScrollRange'
+  import { getEvents } from '../services/eventService'
+  import { events, loading } from '../stores'
 
 	export let fetchedEvents
 	$: events.set(fetchedEvents)
 
   // fetch data
   onMount(async () => {
-    events.set(await getEvents())
+		events.set(await getEvents())
+		loading.set(false)
 	})
 	
 </script>
 
 <script context='module'>
-  export async function preload(page, session) {
+	import URI from 'urijs'
+
+  export async function preload() {
 		const response = await this.fetch(
-			URI('/api/events').query({limit: 100}).toString()
+			URI('/api/events').query({ limit: 100 }).toString()
 		)
 		const fetchedEvents = await response.json()
-		return {fetchedEvents}
+		return { fetchedEvents }
   }
 </script>
 
-<div class="header">
-  <h1>HK Freedom Timeline</h1>
-	<p>The darkest hours, before dawn </p>
-</div>
-
+<Nav />
+<h1>抗爭動態</h1>
 <page-wrapper>
-		<div class='search-info'>
+	<search-info>
+		<search-info-inner>
 			<TimelineSearch />
-			<div class='count-wrapper'>
+			<count-wrapper>
 				<TimelineResultCount />
-			</div>
-		</div>
+			</count-wrapper>
+		</search-info-inner>
+	</search-info>
 
 	<content-wrapper>
 		<Timeline />
 		<time-range-wrapper>
 			<TimelineRange />
 		</time-range-wrapper>
-
 	</content-wrapper>
-
 </page-wrapper>
 
+<TopSearchBar />
+
+<bottom-scroll-range-wrapper>
+	<HorizontalScrollRange />
+</bottom-scroll-range-wrapper>
+
 <style>
-	h1, p {
-		text-align: center;
-		margin: 0 auto;
-	}
-
 	h1 {
-		font-size: 2.8em;
-		text-transform: uppercase;
+		text-align: center;
+		font-size: 48px;
+		line-height: 52px;
 		font-weight: 700;
-    margin: 16px 8px;
-	}
-
-	p {
-		margin: 1em auto;
+		margin-top: 64px;
+		margin-bottom: 32px;
 	}
 
 	page-wrapper {
     width: 780px;
 		display: flex;
     flex-direction: column;
+		justify-content: center;
 	}
 
 	time-range-wrapper {
@@ -85,12 +87,19 @@
 		}
 	}
 
+	bottom-scroll-range-wrapper {
+		display: none;
+	}
+
 	@media (max-width: 768px) {
 		page-wrapper {
 			width: auto;
 		}
 		time-range-wrapper {
 			display: none;
+		}
+		bottom-scroll-range-wrapper {
+			display: initial;
 		}
 	}
 
@@ -99,15 +108,26 @@
 		width: 100%;
 		display: flex;
 	}
-	.search-info {
+
+	search-info {
 		display: flex;
+		justify-content: center;
+		margin-bottom: 12px;
+	}
+
+	search-info-inner {
+		display: flex;
+		flex-direction: column;
+
     align-items: center;
 		justify-content: center;
-		position: relative;
 	}
-	.count-wrapper {
-		position: absolute;
-		margin-right: 16px;
-		right: 0;
+
+	count-wrapper {
+		align-self: flex-end;
+		margin-top: 4px;
+		margin-right: 4px;
+		display: flex;
+		align-items: center;
 	}
 </style>

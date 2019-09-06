@@ -6,7 +6,30 @@ export const timelineSearch = writable('')
 
 export const beforeDate = writable('')
 
+export const loading = writable(true)
+
 export const events = writable([])
+
+export const dateRangeData = derived([events], ([$events]) => {
+  const sortedDates = R.pipe(
+    R.map(R.prop('date')),
+    R.sort(R.descend(R.identity))
+  )($events)
+
+  const dateRange = R.ap([R.head, R.last], [sortedDates])
+
+  const maxDate = DateTime.fromISO(dateRange[0]).endOf('day')
+  const minDate = DateTime.fromISO(dateRange[1]).startOf('day')
+  const dayCount = Math.ceil(maxDate.diff(minDate, 'days').toObject().days)
+  const monthDays = R.range(0, dayCount).map(i =>
+    maxDate.minus({ days: i }).toFormat('L.d')
+  )
+
+  return {
+    monthDays,
+    dayCount,
+  }
+})
 
 export const eventsForDisplay = derived(
   [events, timelineSearch, beforeDate],

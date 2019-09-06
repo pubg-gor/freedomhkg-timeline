@@ -2,7 +2,7 @@
   import {eventsForDisplayCount} from '../stores'
 </script>
 
-<span>{$eventsForDisplayCount} results</span>
+<span>{$eventsForDisplayCount} 項搜尋結果</span>
 
 <style>
   span {

@@ -4,26 +4,26 @@
 
 <style>
 	nav {
-		border-bottom: 1px solid rgba(255,62,0,0.1);
-		font-weight: 300;
-		padding: 0 1em;
+		width: 100%;
+		background-color: #FED826;
+		padding: 30px 0;
+		display: flex;
+
 	}
 
-	ul {
-		margin: 0;
-		padding: 0;
+	head-title {
+		font-size: 20px;
+		line-height: 20px;
+    font-weight: 700;
+		margin-left: 24px;
 	}
 
-	/* clearfix */
-	ul::after {
-		content: '';
-		display: block;
-		clear: both;
+	head-items {
+		display: flex;
 	}
 
-	li {
-		display: block;
-		float: left;
+	head-item {
+		margin-left: 32px;
 	}
 
 	.selected {
@@ -31,27 +31,24 @@
 		display: inline-block;
 	}
 
-	.selected::after {
-		position: absolute;
-		content: '';
-		width: calc(100% - 1em);
-		height: 2px;
-		background-color: rgb(255,62,0);
-		display: block;
-		bottom: -1px;
-	}
-
 	a {
 		text-decoration: none;
-		padding: 1em 0.5em;
-		display: block;
+		color: inherit;
+		font-size: 14px;
+		line-height: 20px;
 	}
 </style>
 
 <nav>
-	<ul>
-		<li><a class='{segment === undefined ? "selected" : ""}' href='.'>Home</a></li>
-		<!-- <li><a class='{segment === "add-event" ? "selected" : ""}' href='/events/new'>add event</a></li> -->
-		<li><a class='{segment === "about" ? "selected" : ""}' href='about'>about</a></li>
-	</ul>
+	<a href='/'>
+		<head-title>Freedom HKG</head-title>
+	</a>
+	<head-items>
+		<head-item>
+			<a class='{segment === undefined ? "selected" : ""}' href='.'>Home</a>
+		</head-item>
+		<!-- <head-item>
+			<a class='{segment === "about" ? "selected" : ""}' href='about'>about</a>
+		</head-item> -->
+	</head-items>
 </nav>

@@ -12,7 +12,9 @@ export const textToHtml = str => {
     const matches = str.match(/https?:\/\/[^\s<]*/g)
     if (!matches) return str
     return R.pipe(
-      ...matches.map(url => R.replace(url, `<a href="${url}">${url}</a>`))
+      ...matches.map(url =>
+        R.replace(url, `<a href="${url}" target="_blank">${url}</a>`)
+      )
     )(str)
   }
   return R.pipe(
