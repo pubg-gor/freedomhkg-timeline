@@ -55,6 +55,6 @@ export async function get(req, res) {
   )
 
   send(res, 200, data, {
-    'Cache-Control': 'max-age=300'
+    'Cache-Control': req.query.limit ? 'max-age=10' : 'max-age=300'
   })
 }
