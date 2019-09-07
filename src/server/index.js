@@ -32,7 +32,7 @@ function overrideSetHeader(req, res, next) {
     if (key === 'Cache-Control') {
       // HTML files
       if (value === 'max-age=600') { 
-        return origSetHeader.apply(this, ['Cache-Control', 'no-cache'])
+        return origSetHeader.apply(this, ['Cache-Control', 'max-age=60'])
       }
     }
 
