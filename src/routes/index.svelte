@@ -1,5 +1,6 @@
 <script>
-  import { onMount } from 'svelte'
+	import { onMount } from 'svelte'
+	import * as R from 'ramda'
 	import Nav from '../components/Nav'
 	import Timeline from '../components/Timeline'
 	import TimelineSearch from '../components/TimelineSearch'
@@ -15,7 +16,17 @@
 
   // fetch data
   onMount(async () => {
-		events.set(await getEvents())
+		const allEvents = await getEvents()
+
+		// append remaining data, so we can allow SSR to fetch latest data,
+		// while using cached version of all events (doesn't include some latest data)
+		const currentEventsId = $events.map(R.prop('telegramMessageId'))
+		const remainingEvents = allEvents.filter(({ telegramMessageId }) => !currentEventsId.includes(telegramMessageId))
+		events.set([
+			...$events,
+			...remainingEvents
+		])
+
 		loading.set(false)
 	})
 	
