@@ -5,6 +5,7 @@ import compression from 'compression'
 import * as sapper from '@sapper/server'
 import helmet from 'helmet'
 import logger from '../utils/logger'
+import httpLogger from '../utils/httpLogger'
 
 const { PORT, NODE_ENV } = process.env
 const dev = NODE_ENV === 'development'
@@ -19,6 +20,10 @@ const dev = NODE_ENV === 'development'
       compression({ threshold: 0 })
     )
     .use('/s', sirv('tg-media', { dev }))
+    .use((req, res, next) => {
+      httpLogger(req, res)
+      next()
+    })
     .use(overrideSetHeader, sapper.middleware())
     .listen(PORT, err => {
       if (err) logger.error(err)

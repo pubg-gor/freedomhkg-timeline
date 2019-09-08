@@ -5,12 +5,9 @@ import Sequelize from 'sequelize'
 import { isDev } from '../../utils/envUtil'
 import config from '../../server/config'
 import { Message, Channel } from '../../drivers/sqlitedb'
-import logger from '../../utils/logger'
 const Op = Sequelize.Op
 
 export async function get(req, res) {
-  logger.info('/api/events')
-
   const channels = R.uniqBy(R.prop('id'))(
     await Channel.findAll({
       order: [['dateUpdated', 'DESC']],
