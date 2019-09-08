@@ -45,6 +45,7 @@
     "luxon": "^1.17.2",
     "minimist": "^1.2.0",
     "pino": "^5.13.1",
+    "pino-http": "^4.3.0",
     "pino-pretty": "^3.2.0",
     "polka": "next",
     "ramda": "^0.26.1",
