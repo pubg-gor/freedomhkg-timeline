@@ -33,7 +33,7 @@ export const dateRangeData = derived([events], ([$events]) => {
 
 export const eventsForDisplay = derived(
   [events, timelineSearch, beforeDate],
-  R.memoizeWith(R.identity, ([$events, $timelineSearch, $beforeDate]) => {
+  ([$events, $timelineSearch, $beforeDate]) => {
     return R.pipe(
       R.filter(
         ({ description }) =>
@@ -56,7 +56,7 @@ export const eventsForDisplay = derived(
         }
       )
     )($events)
-  })
+  }
 )
 
 export const eventsForDisplayCount = derived(
