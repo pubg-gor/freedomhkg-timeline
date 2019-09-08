@@ -5,6 +5,7 @@ import Sequelize from 'sequelize'
 import { isDev } from '../../utils/envUtil'
 import config from '../../server/config'
 import { Message, Channel } from '../../drivers/sqlitedb'
+import logger from '../../utils/logger'
 const Op = Sequelize.Op
 
 export async function get(req, res) {
@@ -50,6 +51,8 @@ export async function get(req, res) {
       telegramMessageId: id,
     })
   )
+
+  logger.info(`first event tg id: ${R.path([0, 'telegramMessageId'], data)}`)
 
   send(res, 200, data, {
     'Cache-Control': req.query.limit ? 'max-age=10' : 'max-age=300'
