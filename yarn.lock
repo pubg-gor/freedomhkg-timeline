@@ -4312,10 +4312,10 @@ svelte-loader@2.13.6:
     loader-utils "^1.1.0"
     svelte-dev-helper "^1.1.9"
 
-svelte@3.9.0:
-  version "3.9.0"
-  resolved "https://registry.yarnpkg.com/svelte/-/svelte-3.9.0.tgz#04e26b48f9f656a431c5e483efa519ab041d20f3"
-  integrity sha512-A3mHsfrzxiXdV7icqKrxVmqNzFtxr4BMEzCDrPYBBtngRuU2Ci/dUHjSq/sZHSe64p/DcF1gjqXfT3sjwA/LnA==
+svelte@3.12.1:
+  version "3.12.1"
+  resolved "https://registry.yarnpkg.com/svelte/-/svelte-3.12.1.tgz#ddfacd43272ac3255907c682b74ee7d3d8b06b0c"
+  integrity sha512-t29WJNjHIqfrdMcVXqIyRfgLEaNz7MihKXTpb8qHlbzvf0WyOOIhIlwIGvl6ahJ9+9CLJwz0sjhFNAmPgo8BHg==
 
 table@^5.2.3:
   version "5.4.4"
