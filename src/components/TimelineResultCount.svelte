@@ -1,8 +1,8 @@
 <script>
-  import {eventsForDisplayCount} from '../stores'
+  import { filteredEventsCount } from '../stores'
 </script>
 
-<span>{$eventsForDisplayCount} 項搜尋結果</span>
+<span>{$filteredEventsCount} 項搜尋結果</span>
 
 <style>
   span {
