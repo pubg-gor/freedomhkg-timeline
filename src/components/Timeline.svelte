@@ -1,30 +1,18 @@
 <script>
-  import * as R from 'ramda'
-  import {DateTime} from '../utils/luxon'
-
   import Description from './Description.svelte'
   import LazyLoad from './LazyLoad.svelte'
-  import {eventsForDisplay} from '../stores'
-
-  let maxVisibleItems = 10
-
-  // reset no. of visible items
-  $: ($eventsForDisplay, (() => {
-    maxVisibleItems = 10
-  })())
-
-  $: visibleItems = R.take(maxVisibleItems, $eventsForDisplay)
+  import { eventsForDisplay, maxVisibleItems, filteredEvents } from '../stores'
 
   $: loadMore = () => {
-    if (maxVisibleItems < $eventsForDisplay.length) {
-      maxVisibleItems += 10
+    if ($maxVisibleItems < $filteredEvents.length) {
+      maxVisibleItems.update(n => n + 10)
     }
   }
 </script>
 
 <LazyLoad loadMore={loadMore}>
   <div class='wrapper'>
-    {#each visibleItems as {date, monthAndDay, time, description, imgUrl, telegramChannel, telegramMessageUrl}}
+    {#each $eventsForDisplay as {date, monthAndDay, time, description, imgUrl, telegramChannel, telegramMessageUrl}}
       <div class="item">
         <div class='datetime'>
           <div class='date'>{monthAndDay}</div>

@@ -10,6 +10,8 @@ export const loading = writable(true)
 
 export const events = writable([])
 
+export const maxVisibleItems = writable(10)
+
 export const dateRangeData = derived([events], ([$events]) => {
   const sortedDates = R.pipe(
     R.map(R.prop('date')),
@@ -31,7 +33,7 @@ export const dateRangeData = derived([events], ([$events]) => {
   }
 })
 
-export const eventsForDisplay = derived(
+export const filteredEvents = derived(
   [events, timelineSearch, beforeDate],
   ([$events, $timelineSearch, $beforeDate]) => {
     return R.pipe(
@@ -41,6 +43,20 @@ export const eventsForDisplay = derived(
           (description && description.includes($timelineSearch))
       ),
       R.reject(({ date }) => $beforeDate && date > $beforeDate),
+    )($events)
+  }
+)
+
+// reset no. of visible items
+filteredEvents.subscribe(() => {
+  maxVisibleItems.set(10)
+})
+
+export const eventsForDisplay = derived(
+  [filteredEvents, maxVisibleItems],
+  ([$filteredEvents, $maxVisibleItems]) => {
+    return R.pipe(
+      R.take($maxVisibleItems),
       R.map(
         ({ description, imgUrl, date, telegramChannel, telegramMessageId }) => {
           const datetime = DateTime.fromISO(date)
@@ -55,11 +71,11 @@ export const eventsForDisplay = derived(
           }
         }
       )
-    )($events)
+    )($filteredEvents)
   }
 )
 
-export const eventsForDisplayCount = derived(
+export const filteredEventsCount = derived(
   [eventsForDisplay],
   ([$eventsForDisplay]) => $eventsForDisplay.length
 )
